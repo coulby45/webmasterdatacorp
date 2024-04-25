@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Story with Cards</title>
+<style>
+  body, html {
+    margin: 0;
+    height: 100%;
+    text-align: center;
+    font-family: 'Oxygen Mono', monospace;
+    color: #999;
+  }
+  .logo {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    animation: rotateLogo 4s linear infinite; /* Animation du logo */
+  }
+
+  @keyframes rotateLogo {
+    from {
+      transform: rotateY(0deg);
+    }
+    to {
+      transform: rotateY(360deg);
+    }
+  }
+
+  .logo img {
+    width: 100px;
+  }
+
+  p {
+    text-align: left;
+    margin: 0;
+    text-transform: lowercase;
+    font-size: 14pt; /* Taille de police augmentée */
+    font-weight: 900;
+    width: 50%;
+    display: none;
+  }
+  h1 {
+    text-transform: uppercase;
+    letter-spacing: 1pt;
+    font-size: 30pt;
+    margin-bottom: 15px;
+    display: none; /* Caché initialement */
+  }
+
+  #centeralign {
+    display: table-cell;
+    vertical-align: middle;
+  }
+
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  .card-container {
+    width: 60%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Alignement à gauche par défaut */
+  }
+
+  .card {
+    width: 200px;
+    background-color: #f0f0f0;
+    padding: 20px;
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: floatAnimation 4s ease-in-out infinite;
+  }
+
+  .card:nth-child(even) {
+    align-self: flex-end;
+    margin: 20px 0 20px 20px; /* Marge pour les cartes apparaissant à droite */
+  }
+
+  .card:nth-child(odd) {
+    margin: 20px 60px 20px 0; /* Marge pour les cartes apparaissant à gauche */
+  }
+
+  @keyframes floatAnimation {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(20px);
+    }
+    100% {
+      transform: translateY(0);
+    }
+  }
+
+  @media (min-width: 768px) {
+    .container {
+      align-items: flex-start;
+    }
+
+    .card-container {
+      width: 40%;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="logo">
+  <img src="datacienPlan-de-travail-1-1024x1024.png" alt="Logo">
+</div>
+
+<h1>Webmaster datacorporation</h1>
+
+<div class="container">
+  <div class="card-container">
+    <div class="card">
+      <p>Bonjour a tous j'espere que vous allez bien</p>
+    </div>
+    <div class="card">
+      <p>Et que vous avez aime la session des progammeur.</p>
+    </div>
+    <div class="card">
+      <p>Place maintenant a la plus cool des sections</p>
+    </div>
+    <div class="card">
+        <p>Les webmasters !!!!</p>
+    </div>
+    <div class="card">
+        <p>Les webmaster sont chargée de la confection et de la maintenance des sites web.Nous nous servons principalemen des langages tels que html et css</p>
+    </div>
+    <div class="card">
+        <p>Je laisserai le liens d'un document a la fin que vous telechargerez </p>
+    </div>
+    <div class="card">
+        <p>Vous devez retenir un maximum d'information de ce texte surtout les pages 73 a 79 </p>
+    </div>
+    <div class="card">
+        <p>Ensuite en vous servant de ce que vous aurez apris vous me rendrez les travaux suivants </p>
+    </div>
+    <div class="card">
+        <p>Reproduisez le plus fidelement possible la <a href="https://labelprestige.com/Inscription/register.php">page d'inscription du label prestige</a>. Avec les animations si vous etes nerf (le footer n'est pas oblige) </p>
+    </div>
+    <div class="card">
+        <p>En deuxieme exercice je vous demanderai de creer une bibliotheque de document de physique. Vous y incluerez uniquement les cours du Dr N'cho (Oui c'est mon idole) </p>
+    </div>
+    <div class="card">
+        <p>Voici le document <a href="c:\Users\ETS BENSON\OneDrive\Bureau\Datawebmaster\1-html_css.pdf"></a> </p>
+    </div>
+    <div class="card">
+        <p>Bonne chance famille </p>
+    </div>
+  </div>
+</div>
+
+<script>
+function typeEffect(element, speed) {
+  return new Promise(resolve => {
+    var text = element.innerHTML;
+    element.innerHTML = "";
+
+    var i = 0;
+    var timer = setInterval(function() {
+      if (i < text.length) {
+        element.innerHTML += text.charAt(i);
+        i++;
+      } else {
+        clearInterval(timer);
+        resolve();
+      }
+    }, speed);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", async function(event) {
+  var speed = 50;
+  var title = document.querySelector('h1');
+  var cards = document.querySelectorAll('.card');
+
+  // Afficher le titre
+  title.style.display = "inline-block";
+  // Typage du titre
+  await typeEffect(title, speed);
+
+  // Typage des paragraphes dans les cartes
+  for (let i = 0; i < cards.length; i++) {
+    var paragraphs = cards[i].querySelectorAll('p');
+    for (let paragraph of paragraphs) {
+      paragraph.style.display = "inline-block";
+      await typeEffect(paragraph, speed);
+    }
+    if (i < cards.length - 1) {
+      await new Promise(resolve => setTimeout(resolve, 3000)); // Délai de 5 secondes entre les cartes
+    }
+  }
+});
+</script>
+</body>
+</html>
